@@ -66,7 +66,7 @@ def get_neural_behav_data_for_regression(file,selected_trials,selected_neurons='
         
     sess_selected = data_df_selected['session'].unique()
     if use_selected_sessions:
-        sess_selected=find_selected_sessions(file,sess_selected)
+        sess_selected=find_specific_sessions(file,sess_selected)
     print(f'selected sessions {sess_selected}')
     data_df_selected = data_df_selected[data_df_selected['session'].isin(sess_selected)]    
     print(f"There're {data_df_selected.shape[0]} datapoints for regression.")
@@ -100,7 +100,7 @@ def get_neural_behav_data_for_regression(file,selected_trials,selected_neurons='
     
     return sess_selected,data_df_selected,pos_indicator_df,turn_indicator_df,patch_indicator_df,progress_indicator_df,spikes_by_posbins,all_units,predictor_neurons
 
-def find_selected_sessions(file,sess_orig):
+def find_specific_sessions(file,sess_orig):
     if np.isin(file,['j1620210714']):
         sess_sub = np.arange(1,7,1) # j1620210714 had 6 sessions total.
     # Late sessions with low reward rate
