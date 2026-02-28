@@ -7,19 +7,15 @@ warnings.filterwarnings("ignore")
 np.set_printoptions(suppress=True)
 
 results_dir = '/home/xulu/code/results/'
+data_dir = '/home/xulu/code/MetaLearningDynamics/example_data/'
 
-def get_neural_behav_data_for_regression(file,selected_trials,selected_neurons='active_neurons',use_selected_sessions=False,use_updated_value=False,incl_pause_time=False,smooth_neural=0):
+def get_neural_behav_data_for_regression(file,selected_trials,selected_neurons='active_neurons',use_selected_sessions=False,use_updated_value=False,incl_pause_time=False):
     bins_per_seg = 4 # Set as constant for now, might move it to function input when needed in the future.
-    data_dir = '/home/xulu/code/data/'+file+'_ValueDecision/'
-    
-    if smooth_neural == 1:
-        smooth_type = "GaussianSmooth"
-    else:
-        smooth_type = "NoSmooth"
+
     if incl_pause_time:
-        data_df_switch_dir = data_dir+file+f"_data_df_{smooth_type}_mPFC_{int(bins_per_seg*2+3)}bins_WithOutcome+RewardHist+Uncertainty+ExpVal+PatchVal+PastVal+ValueDiff+ValueDiffMax+AltValue+StemStayP+SwitchTrialID+HeadDir+HeadAngle+Velocity.pkl"
+        data_df_switch_dir = data_dir+file+f"_data_df_NoSmooth_mPFC_{int(bins_per_seg*2+3)}bins_WithOutcome+RewardHist+Uncertainty+ExpVal+PatchVal+PastVal+ValueDiff+ValueDiffMax+AltValue+StemStayP+SwitchTrialID+HeadDir+HeadAngle+Velocity.pkl"
     else:
-        data_df_switch_dir = data_dir+file+f"_data_df_{smooth_type}_mPFC_{int(bins_per_seg*2)}bins_WithOutcome+RewardHist+ExpVal+PatchVal+PastVal+ValueDiff+ValueDiffMax+AltValue+StemStayP+SwitchTrialID+HeadDir+HeadAngle+Velocity.pkl"    
+        data_df_switch_dir = data_dir+file+f"_data_df_NoSmooth_mPFC_{int(bins_per_seg*2)}bins_WithOutcome+RewardHist+ExpVal+PatchVal+PastVal+ValueDiff+ValueDiffMax+AltValue+StemStayP+SwitchTrialID+HeadDir+HeadAngle+Velocity.pkl"    
     if os.path.exists(data_df_switch_dir):
         data_df = pd.read_pickle(data_df_switch_dir)
     else:
