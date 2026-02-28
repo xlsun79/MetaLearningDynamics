@@ -30,9 +30,6 @@ def get_neural_behav_data_for_regression(file,selected_trials,selected_neurons='
     data_df = pd.concat((data_df,pd.DataFrame({'trial id after switch':pokes_after_switch})),axis=1)    
     data_df.columns = data_df.columns.str.replace(" ", "_", regex=False) # replace all spaces in the column names of data_df by underscore
 
-    behav_data_all = pd.read_pickle(data_dir+file+"_behav_data_all.pkl")
-    spikeT = np.load(data_dir+file+"_spike_time_all_curated.npy",allow_pickle=True)
-
     # Load active neuron indices if pre-computed.
     if os.path.exists(results_dir+file+"_curated_active_neuron_index_0.5thres_everysesh.npy"):
         active_neurons = np.load(results_dir+file+"_curated_active_neuron_index_0.5thres_everysesh.npy")
@@ -90,7 +87,7 @@ def get_neural_behav_data_for_regression(file,selected_trials,selected_neurons='
     progress_indicator_df = create_progress_indicators_from_turn_indicators(turn_indicator_df,prog_bin_sequence)
      
     # Get neural spikes data of value neurons.
-    all_units = range(0,spikeT.shape[0])
+    all_units = range(0,data_df_selected.filter(regex='spike').shape[1])
     if selected_neurons == 'value_neurons':
         predictor_neurons = value_neurons # Choose neurons that will be used in the predictor
     if selected_neurons == 'active_neurons': # By default we use all active neurons unless defined in the function input.
