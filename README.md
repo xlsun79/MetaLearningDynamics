@@ -1,7 +1,7 @@
 # MetaLearningDynamics
 Custom code for central analysis in Sun*, Comrie*, et al., 2026.
 
-Before running the analysis, please install the environment by:
+Before running the analysis, please cd into the MetaLearningDynamics folder, and install the environment by:
 ```
 mamba env create -f environment.yml
 ```
